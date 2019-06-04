@@ -5,6 +5,7 @@
   "dependencies": {
     "grapesjs": "^0.14.52",
     "grapesjs-preset-webpage": "^0.1.10",
+    "ipfs-mini": "^1.1.5",
     "react": "^16.7.0",
     "react-dom": "^16.7.0",
     "react-scripts": "2.1.3"
