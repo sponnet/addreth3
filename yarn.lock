@@ -6890,6 +6890,10 @@ public-encrypt@^4.0.0:
     randombytes "^2.0.1"
     safe-buffer "^5.1.2"
 
+"public-gateway-checker@https://github.com/ipfs/public-gateway-checker.git":
+  version "0.0.0"
+  resolved "https://github.com/ipfs/public-gateway-checker.git#caf50b1003ec76d2a7db4da1f852924db00e074c"
+
 pump@^2.0.0, pump@^2.0.1:
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/pump/-/pump-2.0.1.tgz#12399add6e4cf7526d973cbc8b5ce2e2908b3909"

@@ -3,6 +3,8 @@ import "grapesjs/dist/css/grapes.min.css";
 import grapesjs from "grapesjs";
 import gjspresetwebpage from "grapesjs-preset-webpage";
 import IPFS from "ipfs-mini";
+import "./Edit.css";
+import gateways from "public-gateway-checker/gateways.json";
 
 const Editor = ({ }) => {
 
@@ -13,7 +15,7 @@ const Editor = ({ }) => {
     // upload asset to IPFS and add URL to asset manager
     const uploadAsset = (response, editor) => {
         const d = {
-            src: `${ipfsEndpoint}/cat/${response.Hash}`,
+            src: `${ipfsGatewayEndpoint}/${response.Hash}`,
             type: 'image',
             height: 100,
             width: 200,
@@ -48,11 +50,24 @@ const Editor = ({ }) => {
                 label: 'Publish to IPFS',
                 command(editor) {
                     // create HTML output
-                    const output = `<html><head><style>${editor.getCss()}</style></head><body>${editor.getHtml()}</body></html>`;
+                    // make links relative
+                    const body = editor.getHtml().replace(`${ipfsGatewayEndpoint}/`,"");
+                    const output = `<html><head><style>${editor.getCss()}</style></head><body>${body}</body></html>`;
+
+                    const ipfslinks = [
+                        ipfsGatewayEndpoint,
+                        ...gateways
+                    ];
 
                     // save HTML to IPFS
                     ipfs.add(output).then((result) => {
-                        editor.Modal.setContent(`<div>Your site is live at<br/><h4>${ipfsGatewayEndpoint}/${result}</h4></div>`);
+
+                        const links = ipfslinks.map((item) => {
+                            const gateway = item.replace(":hash","");
+                            return(`<li><a class="ipfslink" target="_new" href="${gateway}${result}">${gateway}${result}</a></li>`);
+                        }).join();
+                        
+                        editor.Modal.setContent(`<div>Your site is live at<br/><ul>${links}</ul></div>`);
                         editor.Modal.open();
                     }).catch((e) => {
                         editor.Modal.setContent(`<div>Could not save your page ${e.message}</div>`);
