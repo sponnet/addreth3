@@ -56,18 +56,18 @@ const Editor = ({ }) => {
 
                     const ipfslinks = [
                         ipfsGatewayEndpoint,
-                        ...gateways
+                        // ...gateways
                     ];
 
                     // save HTML to IPFS
                     ipfs.add(output).then((result) => {
-
                         const links = ipfslinks.map((item) => {
                             const gateway = item.replace(":hash","");
-                            return(`<li><a class="ipfslink" target="_new" href="${gateway}${result}">${gateway}${result}</a></li>`);
+                            const link = `${gateway}${result}`;
+                            return(`<li><a class="ipfslink" target="_new" href="${link}">${link}}</a></li>`);
                         }).join();
                         
-                        editor.Modal.setContent(`<div>Your site is live at<br/><ul>${links}</ul></div>`);
+                        editor.Modal.setContent(`<div>Your site is live at<br/><ul>${links}</ul><p><a class="ipfslink" target="_new" href="https://public-gateway-checker.netlify.com/?${result}">show alternative URLs</a></p></div>`);
                         editor.Modal.open();
                     }).catch((e) => {
                         editor.Modal.setContent(`<div>Could not save your page ${e.message}</div>`);
