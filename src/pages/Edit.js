@@ -10,12 +10,12 @@ const Editor = ({ }) => {
 
     const ipfsEndpoint = "https://ipfs.web3.party:5001/api/v0";
     const ipfs = new IPFS({ host: 'ipfs.web3.party', port: 5001, protocol: 'https' });
-    const ipfsGatewayEndpoint = "https://ipfs.web3.party/ipfs";
+    const ipfsGatewayEndpoint = "https://ipfs.web3.party/ipfs/";
 
     // upload asset to IPFS and add URL to asset manager
     const uploadAsset = (response, editor) => {
         const d = {
-            src: `${ipfsGatewayEndpoint}/${response.Hash}`,
+            src: `${ipfsGatewayEndpoint}${response.Hash}`,
             type: 'image',
             height: 100,
             width: 200,
