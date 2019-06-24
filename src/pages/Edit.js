@@ -64,7 +64,7 @@ const Editor = ({ }) => {
                         const links = ipfslinks.map((item) => {
                             const gateway = item.replace(":hash","");
                             const link = `${gateway}${result}`;
-                            return(`<li><a class="ipfslink" target="_new" href="${link}">${link}}</a></li>`);
+                            return(`<li><a class="ipfslink" target="_new" href="${link}">${link}</a></li>`);
                         }).join();
                         
                         editor.Modal.setContent(`<div>Your site is live at<br/><ul>${links}</ul><p><a class="ipfslink" target="_new" href="https://public-gateway-checker.netlify.com/?${result}">show alternative URLs</a></p></div>`);
